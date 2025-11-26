@@ -7,8 +7,6 @@ M.ns = vim.api.nvim_create_namespace("catalog-lens")
 local defaults = {
   -- Enable the plugin
   enabled = true,
-  -- Debounce time in milliseconds for virtual text updates
-  debounce = 200,
   -- Virtual text style
   virtual_text = {
     prefix = " ",
