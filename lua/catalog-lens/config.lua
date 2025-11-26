@@ -7,6 +7,10 @@ M.ns = vim.api.nvim_create_namespace("catalog-lens")
 local defaults = {
   -- Enable the plugin
   enabled = true,
+  -- Control whether to use color in nvim_buf_set_extmark
+  namedCatalogsColors = true,
+  -- Control whether to use custom rendering for hint
+  useOriginalInlayHint = false,
 }
 
 local config = vim.deepcopy(defaults) --[[@as catalog-lens.Config]]

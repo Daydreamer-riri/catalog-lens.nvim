@@ -1,4 +1,5 @@
 local M = {}
+local Config = require("catalog-lens.config")
 
 ---@param server_path string
 function M.setup(server_path)
@@ -13,6 +14,10 @@ function M.setup(server_path)
   local ns = vim.api.nvim_create_namespace("catalog_inlay_hints")
 
   local color_util = require("catalog-lens.color")
+
+  if Config.useOriginalInlayHint then
+    return
+  end
 
   local orig_handler = vim.lsp.handlers["textDocument/inlayHint"]
   vim.lsp.handlers["textDocument/inlayHint"] = function(err, result, ctx, config)
@@ -40,7 +45,7 @@ function M.setup(server_path)
       end
 
       ---@type string
-      local color = hint.extraData.color
+      local color = Config.namedCatalogsColors and hint.extraData.color or "#f69220"
       ---@type string
       local catalog = hint.extraData.catalog
       vim.api.nvim_buf_set_extmark(ctx.bufnr, ns, l, c, {
