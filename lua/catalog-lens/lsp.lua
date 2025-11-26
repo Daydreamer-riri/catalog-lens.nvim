@@ -60,6 +60,27 @@ function M.setup(server_path)
         end
       end,
     })
+
+    vim.api.nvim_create_autocmd("BufEnter", {
+      group = Config.augroup,
+      pattern = "package.json",
+      callback = function(args)
+        if not Config.enabled then
+          return
+        end
+        local client = vim.lsp.get_clients({ bufnr = args.buf, name = "catalog_ls" })[1]
+        if client then
+          local params = {
+            textDocument = vim.lsp.util.make_text_document_params(args.buf),
+            range = {
+              start = { line = 0, character = 0 },
+              ["end"] = { line = vim.api.nvim_buf_line_count(args.buf), character = 0 },
+            },
+          }
+          client:request("textDocument/inlayHint", params, nil, args.buf)
+        end
+      end,
+    })
   end
 
   vim.lsp.config["catalog_ls"] = {
