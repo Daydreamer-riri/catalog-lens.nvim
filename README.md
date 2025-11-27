@@ -50,6 +50,10 @@ You can use the following Lua functions to control the plugin:
 - `require("catalog-lens").disable()`: Disable the plugin and LSP.
 - `require("catalog-lens").toggle()`: Toggle the plugin state.
 
+## Credits
+
+Inspired by [vscode-pnpm-catalog-lens](https://github.com/antfu/vscode-pnpm-catalog-lens) by [Anthony Fu](https://github.com/antfu)
+
 ## 📝 License
 
 [MIT](./LICENSE)
