@@ -2,7 +2,9 @@
 
 Show inlay version and go-to-definition for PNPM/Yarn/Bun catalogs.
 
-![catalog-lens.nvim demo](./res/preview.png)
+<p align="center">
+<img height="600" alt="Screenshot" src="https://github.com/Daydreamer-riri/catalog-lens.nvim/raw/main/res/preview.png">
+</p>
 
 ## ✨ Features
 
