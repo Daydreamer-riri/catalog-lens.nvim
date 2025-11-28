@@ -1,33 +1,45 @@
+local api = require("catalog-lens.api")
+local config = require("catalog-lens.config")
+local lsp = require("catalog-lens.lsp")
+
 local M = {}
 
+--Create user commands belongs to this plugin
+local function create_user_commands()
+  vim.api.nvim_create_user_command("CatalogLensEnable", api.enable, { desc = "Enable Catalog Lens" })
+  vim.api.nvim_create_user_command("CatalogLensDisable", api.disable, { desc = "Disable Catalog Lens" })
+  vim.api.nvim_create_user_command("CatalogLensToggle", api.toggle, { desc = "Toggle Catalog Lens" })
+end
+
+--Expose API functions
+local function expose_api_functions()
+  function M.enable()
+    api.enable()
+  end
+
+  function M.disable()
+    api.disable()
+  end
+
+  function M.toggle()
+    api.toggle()
+  end
+end
+
+---Setup catalog-lens
 ---@param opts? catalog-lens.Config
 function M.setup(opts)
-  require("catalog-lens.config").setup(opts)
+  config.setup(opts)
 
   local server_paths = vim.api.nvim_get_runtime_file("catalog-lens-lsp/server.js", false)[1]
-  require("catalog-lens.lsp").setup(server_paths)
+  lsp.setup(server_paths)
 
-  if not require("catalog-lens.config").enabled then
-    M.disable()
+  if not config.enabled then
+    api.disable()
   end
-end
 
-function M.enable()
-  require("catalog-lens.config").enabled = true
-  vim.lsp.enable("catalog_ls", true)
-end
-
-function M.disable()
-  require("catalog-lens.config").enabled = false
-  vim.lsp.enable("catalog_ls", false)
-end
-
-function M.toggle()
-  if require("catalog-lens.config").enabled then
-    M.disable()
-  else
-    M.enable()
-  end
+  expose_api_functions()
+  create_user_commands()
 end
 
 return M
