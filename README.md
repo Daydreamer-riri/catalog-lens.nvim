@@ -48,7 +48,13 @@ The plugin will automatically detect package catalogs and show inline version in
 
 ### Commands
 
-You can use the following Lua functions to control the plugin:
+You can use user cmmands to control the plugin:
+
+- `CatalogLensEnable`: Enable the plugin and LSP.
+- `CatalogLensDisable`: Disable the plugin and LSP.
+- `CatalogLensToggle`: Toggle the plugin state.
+
+You can also use the Lua API:
 
 - `require("catalog-lens").enable()`: Enable the plugin and LSP.
 - `require("catalog-lens").disable()`: Disable the plugin and LSP.
